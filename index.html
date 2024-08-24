@@ -5,16 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Court-Mais-Trash (CMT) - ESSEC</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #4285F4;
-            --secondary-color: #34A853;
-            --accent-color: #EA4335;
+            --primary-color: #3A86FF;
+            --secondary-color: #8338EC;
+            --accent-color: #FF006E;
             --background-color: #F8F9FA;
-            --text-color: #202124;
+            --text-color: #212529;
             --card-background: #FFFFFF;
             --shadow-color: rgba(0, 0, 0, 0.1);
+            --input-border: #CED4DA;
+            --button-color: #3A86FF;
+            --tab-inactive: #E9ECEF;
+            --success-color: #38B000;
         }
 
         * {
@@ -24,10 +28,11 @@
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: var(--background-color);
             color: var(--text-color);
             line-height: 1.6;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         }
 
         .container {
@@ -37,13 +42,14 @@
         }
 
         header {
-            background-color: var(--primary-color);
+            background: linear-gradient(120deg, var(--primary-color), var(--secondary-color));
             color: white;
             padding: 20px 0;
-            position: sticky;
+            position: fixed;
+            width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px var(--shadow-color);
+            box-shadow: 0 4px 6px var(--shadow-color);
         }
 
         .header-content {
@@ -54,7 +60,7 @@
 
         .logo {
             font-size: 24px;
-            font-weight: bold;
+            font-weight: 700;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -70,9 +76,7 @@
             color: white;
             text-decoration: none;
             font-size: 16px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+            font-weight: 500;
             transition: all 0.3s ease;
         }
 
@@ -81,15 +85,37 @@
         }
 
         .hero {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 60px 0;
+            background: linear-gradient(rgba(58, 134, 255, 0.8), rgba(131, 56, 236, 0.8)), url('https://source.unsplash.com/random/1600x900/?university') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
+            color: white;
+            padding: 0 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
         }
 
         .hero h1 {
             font-size: 48px;
             margin-bottom: 20px;
+            font-weight: 700;
         }
 
         .hero p {
@@ -99,35 +125,61 @@
         }
 
         .btn {
-            background-color: var(--accent-color);
+            background: linear-gradient(120deg, var(--accent-color), var(--secondary-color));
             color: white;
             border: none;
             padding: 12px 24px;
             font-size: 18px;
             cursor: pointer;
             border-radius: 30px;
-            font-weight: bold;
+            font-weight: 600;
             transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: all 0.4s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn:hover {
-            background-color: #C5221F;
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .search-container {
             display: flex;
             justify-content: center;
-            margin: 30px 0;
+            margin: 50px 0;
         }
 
         .search-input {
             width: 60%;
-            padding: 12px 20px;
+            padding: 15px 20px;
             font-size: 16px;
             border-radius: 30px;
-            border: 2px solid var(--primary-color);
+            border: none;
+            box-shadow: 0 4px 6px var(--shadow-color);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
             outline: none;
+            box-shadow: 0 6px 8px var(--shadow-color);
+            width: 65%;
         }
 
         .tabs {
@@ -138,7 +190,7 @@
         }
 
         .tab-btn {
-            background-color: var(--primary-color);
+            background: linear-gradient(120deg, var(--primary-color), var(--secondary-color));
             color: white;
             border: none;
             padding: 12px 24px;
@@ -146,81 +198,90 @@
             cursor: pointer;
             border-radius: 30px;
             transition: all 0.3s ease;
+            font-weight: 600;
         }
 
-        .tab-btn:hover, .tab-btn.active {
-            background-color: var(--secondary-color);
+        .tab-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px var(--shadow-color);
         }
 
         .card-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 30px;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
         }
 
         .card {
             background-color: var(--card-background);
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 6px var(--shadow-color);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 20px var(--shadow-color);
             transition: all 0.3s ease;
         }
 
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 6px 8px var(--shadow-color);
+            box-shadow: 0 15px 30px var(--shadow-color);
         }
 
         .card-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
             color: var(--primary-color);
         }
 
         .card-info {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 5px;
+            font-size: 16px;
+            color: #6c757d;
+            margin-bottom: 10px;
         }
 
         .chart-container {
             background-color: var(--card-background);
-            border-radius: 10px;
+            border-radius: 15px;
             padding: 30px;
-            box-shadow: 0 4px 6px var(--shadow-color);
-            margin-bottom: 40px;
+            box-shadow: 0 10px 20px var(--shadow-color);
+            margin-bottom: 50px;
         }
 
         .chart-title {
             font-size: 24px;
-            font-weight: bold;
+            font-weight: 700;
             margin-bottom: 20px;
             color: var(--primary-color);
             text-align: center;
         }
 
-        footer {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 30px 0;
-            text-align: center;
+        .about-cmt {
+            background-color: var(--card-background);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 20px var(--shadow-color);
+            margin-bottom: 50px;
         }
 
-        .language-selector {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-        }
-
-        .language-selector select {
-            padding: 5px 10px;
-            font-size: 14px;
-            border-radius: 5px;
-            border: none;
-            background-color: white;
+        .about-cmt h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
             color: var(--primary-color);
+        }
+
+        .about-cmt p {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #495057;
+        }
+
+        footer {
+            background: linear-gradient(120deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
         }
 
         @media (max-width: 768px) {
@@ -260,48 +321,45 @@
         </div>
     </header>
 
-    <div class="language-selector">
-        <select id="language-select" onchange="changeLanguage()">
-            <option value="fr">Français</option>
-            <option value="en">English</option>
-        </select>
-    </div>
-
-    <main class="container">
+    <main>
         <section class="hero">
-            <h1>Bienvenue sur Court-Mais-Trash!</h1>
-            <p>Découvrez les meilleurs cours et professeurs de l'ESSEC, évalués par vos pairs</p>
-            <button class="btn">Commencer l'exploration</button>
+            <div class="hero-content">
+                <h1>Bienvenue sur Court-Mais-Trash!</h1>
+                <p>Découvrez les meilleurs cours et professeurs de l'ESSEC, évalués par vos pairs</p>
+                <button class="btn">Commencer l'exploration</button>
+            </div>
         </section>
 
-        <div class="search-container">
-            <input type="text" class="search-input" placeholder="Rechercher un cours ou un professeur..." id="searchInput">
+        <div class="container">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Rechercher un cours ou un professeur..." id="searchInput">
+            </div>
+
+            <section class="tabs">
+                <button class="tab-btn active" data-tab="courses">Les cours les mieux notés</button>
+                <button class="tab-btn" data-tab="professors">Les profs les mieux notés</button>
+            </section>
+
+            <section class="card-container" id="cardContainer"></section>
+
+            <section class="chart-container">
+                <h2 class="chart-title">Analyse des départements</h2>
+                <canvas id="myChart"></canvas>
+            </section>
+
+            <section class="about-cmt">
+                <h2>À propos de Court-Mais-Trash</h2>
+                <p>Le Court-Mais-Trash (ou CMT pour les intimes) est une plateforme qui regroupe l'ensemble des avis des étudiants de la Grande École de l'ESSEC sur les différents cours dispensés.</p>
+                <p>Il est parfois difficile de faire son choix dans un catalogue de plus de 200 cours. C'est pourquoi le BDE ESSEC s'active chaque année pour récupérer un maximum d'avis, pour que tu puisses faire ton choix plus aisément.</p>
+                <p>Il faut savoir que le CMT n'est pas officiel. Les avis qui sont récoltés ici ne proviennent pas de l'administration. Donc pas de langue de bois, tu t'exprimes comme tu le souhaites (toujours dans le respect d'autrui).</p>
+                <p>De plus, nous t'invitons bien évidemment à mettre tes avis. Venir récupérer des infos c'est bien, mais en donner soit même c'est pas mal aussi. Pas de panique, tout est anonyme !</p>
+            </section>
         </div>
-
-        <section class="tabs">
-            <button class="tab-btn active" data-tab="courses">Les cours les mieux notés</button>
-            <button class="tab-btn" data-tab="professors">Les profs les mieux notés</button>
-        </section>
-
-        <section class="card-container" id="cardContainer"></section>
-
-        <section class="chart-container">
-            <h2 class="chart-title">Analyse des départements</h2>
-            <canvas id="myChart"></canvas>
-        </section>
-
-        <section class="about-cmt">
-            <h2>À propos de Court-Mais-Trash</h2>
-            <p>Le Court-Mais-Trash (ou CMT pour les intimes) est une plateforme qui regroupe l'ensemble des avis des étudiants de la Grande École de l'ESSEC sur les différents cours dispensés.</p>
-            <p>Il est parfois difficile de faire son choix dans un catalogue de plus de 200 cours. C'est pourquoi le BDE ESSEC s'active chaque année pour récupérer un maximum d'avis, pour que tu puisses faire ton choix plus aisément.</p>
-            <p>Il faut savoir que le CMT n'est pas officiel. Les avis qui sont récoltés ici ne proviennent pas de l'administration. Donc pas de langue de bois, tu t'exprimes comme tu le souhaites (toujours dans le respect d'autrui).</p>
-            <p>De plus, nous t'invitons bien évidemment à mettre tes avis. Venir récupérer des infos c'est bien, mais en donner soit même c'est pas mal aussi. Pas de panique, tout est anonyme !</p>
-        </section>
     </main>
 
     <footer>
         <div class="container">
-            <p>© 2024 Court-Mais-Trash. Tous droits réservés.</p>
+            <p>&copy; 2024 Court-Mais-Trash. Tous droits réservés.</p>
             <p>Développé avec passion par BDE Havana</p>
         </div>
     </footer>
@@ -324,7 +382,7 @@
             { name: 'Carla Young', rating: 9.2, reviews: 44, department: 'Management' },
         ];
 
-        const chartData = [
+      const chartData = [
             { name: 'Marketing', avgRating: 8.8, totalCourses: 25 },
             { name: 'Finance', avgRating: 8.6, totalCourses: 20 },
             { name: 'Management', avgRating: 8.5, totalCourses: 18 },
@@ -384,22 +442,15 @@
                     {
                         label: 'Note moyenne',
                         data: chartData.map(item => item.avgRating),
-                        backgroundColor: 'rgba(66, 133, 244, 0.7)',
-                        borderColor: 'rgba(66, 133, 244, 1)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Note moyenne',
-                        data: chartData.map(item => item.avgRating),
-                        backgroundColor: 'rgba(66, 133, 244, 0.7)',
-                        borderColor: 'rgba(66, 133, 244, 1)',
+                        backgroundColor: 'rgba(58, 134, 255, 0.7)',
+                        borderColor: 'rgba(58, 134, 255, 1)',
                         borderWidth: 1
                     },
                     {
                         label: 'Nombre de cours',
                         data: chartData.map(item => item.totalCourses),
-                        backgroundColor: 'rgba(234, 67, 53, 0.7)',
-                        borderColor: 'rgba(234, 67, 53, 1)',
+                        backgroundColor: 'rgba(131, 56, 236, 0.7)',
+                        borderColor: 'rgba(131, 56, 236, 1)',
                         borderWidth: 1
                     }
                 ]
@@ -417,7 +468,11 @@
                     },
                     title: {
                         display: true,
-                        text: 'Analyse des départements'
+                        text: 'Analyse des départements',
+                        font: {
+                            size: 18,
+                            weight: 'bold'
+                        }
                     }
                 }
             }
@@ -426,29 +481,37 @@
         // Initialize the page
         renderCards(courseData);
 
-        // Language switching functionality
-        function changeLanguage() {
-            const lang = document.getElementById('language-select').value;
-            if (lang === 'en') {
-                // Change text to English
-                document.querySelector('.hero h1').textContent = 'Welcome to Court-Mais-Trash!';
-                document.querySelector('.hero p').textContent = 'Discover the best courses and professors at ESSEC, rated by your peers';
-                document.querySelector('.hero .btn').textContent = 'Start Exploring';
-                document.querySelector('.search-input').placeholder = 'Search for a course or professor...';
-                document.querySelectorAll('.tab-btn')[0].textContent = 'Top Rated Courses';
-                document.querySelectorAll('.tab-btn')[1].textContent = 'Top Rated Professors';
-                // ... add more translations as needed
-            } else {
-                // Change text back to French
-                document.querySelector('.hero h1').textContent = 'Bienvenue sur Court-Mais-Trash!';
-                document.querySelector('.hero p').textContent = 'Découvrez les meilleurs cours et professeurs de l\'ESSEC, évalués par vos pairs';
-                document.querySelector('.hero .btn').textContent = 'Commencer l\'exploration';
-                document.querySelector('.search-input').placeholder = 'Rechercher un cours ou un professeur...';
-                document.querySelectorAll('.tab-btn')[0].textContent = 'Les cours les mieux notés';
-                document.querySelectorAll('.tab-btn')[1].textContent = 'Les profs les mieux notés';
-                // ... add more translations as needed
-            }
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Animate elements on scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.card, .chart-container, .about-cmt');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementBottom = element.getBoundingClientRect().bottom;
+                if (elementTop < window.innerHeight && elementBottom > 0) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
         }
+
+        window.addEventListener('scroll', animateOnScroll);
+        animateOnScroll(); // Initial check on page load
+
+        // Add parallax effect to hero section
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.pageYOffset;
+            document.querySelector('.hero').style.backgroundPositionY = `${scrollPosition * 0.5}px`;
+        });
     </script>
 </body>
 </html>
