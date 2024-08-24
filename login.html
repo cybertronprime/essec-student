@@ -5,19 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Court-Mais-Trash (CMT) - ESSEC</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #4285F4;
-            --secondary-color: #34A853;
-            --accent-color: #EA4335;
-            --background-color: #F0F4F8;
-            --text-color: #333333;
+            --primary-color: #3A86FF;
+            --secondary-color: #8338EC;
+            --accent-color: #FF006E;
+            --background-color: #F8F9FA;
+            --text-color: #212529;
             --card-background: #FFFFFF;
             --shadow-color: rgba(0, 0, 0, 0.1);
-            --input-border: #DADCE0;
-            --button-color: #4285F4;
-            --tab-inactive: #E1E5EA;
+            --input-border: #CED4DA;
+            --button-color: #3A86FF;
+            --tab-inactive: #E9ECEF;
+            --success-color: #38B000;
         }
 
         * {
@@ -27,7 +28,7 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: var(--background-color);
             color: var(--text-color);
             line-height: 1.6;
@@ -36,32 +37,61 @@
             align-items: center;
             min-height: 100vh;
             padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         }
 
         .container {
             background-color: var(--card-background);
             border-radius: 20px;
-            box-shadow: 0 10px 30px var(--shadow-color);
+            box-shadow: 0 20px 40px var(--shadow-color);
             overflow: hidden;
             width: 100%;
-            max-width: 460px;
+            max-width: 480px;
+            transition: all 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
         }
 
         .header {
-            background-color: var(--primary-color);
+            background: linear-gradient(120deg, var(--primary-color), var(--secondary-color));
             color: white;
             text-align: center;
-            padding: 20px;
+            padding: 30px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 50%);
+            transform: rotate(30deg);
         }
 
         .header h1 {
-            font-size: 24px;
-            font-weight: 600;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.8;
         }
 
         .tabs {
             display: flex;
             background-color: var(--tab-inactive);
+            padding: 5px;
+            border-radius: 10px 10px 0 0;
         }
 
         .tab {
@@ -69,46 +99,81 @@
             text-align: center;
             padding: 15px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-weight: 500;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: var(--text-color);
+            border-radius: 8px 8px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, var(--primary-color), var(--secondary-color));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
         }
 
         .tab.active {
-            background-color: var(--card-background);
+            color: white;
+        }
+
+        .tab.active::before {
+            opacity: 1;
         }
 
         .tab-content {
-            padding: 30px;
+            padding: 40px 30px;
             display: none;
         }
 
         .tab-content.active {
             display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .input-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            position: relative;
         }
 
         .input-group label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-weight: 500;
             color: var(--text-color);
+            transition: all 0.3s ease;
         }
 
         .input-group input {
             width: 100%;
-            padding: 12px;
+            padding: 12px 15px;
             border: 2px solid var(--input-border);
             border-radius: 8px;
             font-size: 16px;
-            transition: border-color 0.3s ease;
+            transition: all 0.3s ease;
+            background-color: #F8F9FA;
         }
 
         .input-group input:focus {
             outline: none;
             border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(58, 134, 255, 0.1);
+        }
+
+        .input-group input:focus + label {
+            color: var(--primary-color);
         }
 
         .input-addon {
@@ -123,18 +188,19 @@
         }
 
         .input-addon span {
-            background-color: #f1f3f4;
-            padding: 14px;
+            background-color: #E9ECEF;
+            padding: 12px 15px;
             border: 2px solid var(--input-border);
             border-left: none;
             border-top-right-radius: 8px;
             border-bottom-right-radius: 8px;
-            color: #5f6368;
+            color: #6C757D;
             font-size: 14px;
+            font-weight: 500;
         }
 
         .btn {
-            background-color: var(--button-color);
+            background: linear-gradient(120deg, var(--primary-color), var(--secondary-color));
             color: white;
             border: none;
             padding: 12px 20px;
@@ -142,12 +208,32 @@
             cursor: pointer;
             border-radius: 8px;
             width: 100%;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
             font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: all 0.4s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn:hover {
-            background-color: #3367D6;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .forgot-password {
@@ -159,28 +245,51 @@
             color: var(--primary-color);
             text-decoration: none;
             font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .forgot-password a:hover {
+            color: var(--secondary-color);
         }
 
         .contact-info {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 30px;
             font-size: 14px;
-            color: #5f6368;
+            color: #6C757D;
+            padding: 20px;
+            background-color: #F8F9FA;
+            border-radius: 8px;
+        }
+
+        .contact-info strong {
+            color: var(--primary-color);
         }
 
         footer {
             text-align: center;
             padding: 20px;
-            color: #5f6368;
+            color: #6C757D;
             font-size: 14px;
             position: absolute;
             bottom: 0;
             width: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
         }
 
         @media (max-width: 480px) {
             .container {
                 border-radius: 0;
+            }
+            .header {
+                padding: 20px;
+            }
+            .header h1 {
+                font-size: 24px;
+            }
+            .tab-content {
+                padding: 30px 20px;
             }
         }
     </style>
@@ -189,6 +298,7 @@
     <div class="container">
         <div class="header">
             <h1>Welcome to Court-Mais-Trash</h1>
+            <p>Your gateway to ESSEC's course insights</p>
         </div>
         <div class="tabs">
             <div class="tab active" onclick="openTab(event, 'login')">Log in</div>
@@ -238,13 +348,12 @@
             </form>
         </div>
         <div class="contact-info">
-            If you have any problems, contact us at<br>
-            <strong>contact@bde-essec.fr</strong>
+            Need help? Contact us at <strong>contact@bde-essec.fr</strong>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2024 Court-Mais-Trash. All rights reserved. | Developed with passion by BDE Havana</p>
+        <p>&copy; 2024 Court-Mais-Trash. All rights reserved. | Crafted with ❤️ by BDE Havana</p>
     </footer>
 
     <script>
@@ -264,17 +373,15 @@
 
         document.getElementById('login-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            // Here you would typically send the login data to your server
-            // For this example, we'll just simulate a successful login
+            // Simulated login success
             alert('Login successful! Redirecting to home page...');
             // window.location.href = 'index.html';
         });
 
         document.getElementById('register-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            // Here you would typically send the registration data to your server
-            // For this example, we'll just simulate a successful registration
-            alert('Account created successfully! An email has been sent to you. Please check your inbox to verify your account.');
+            // Simulated registration success
+            alert('Account created successfully! Check your email for verification.');
             // window.location.href = 'index.html';
         });
     </script>
