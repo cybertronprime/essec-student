@@ -18,6 +18,7 @@
             --input-border: #CED4DA;
             --button-color: #3A86FF;
             --tab-inactive: #E9ECEF;
+            --success-color: #38B000;
         }
 
         * {
@@ -28,7 +29,7 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--background-color);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             color: var(--text-color);
             line-height: 1.6;
         }
@@ -40,13 +41,14 @@
         }
 
         header {
-            background-color: var(--text-color);
+            background: linear-gradient(120deg, var(--primary-color), var(--secondary-color));
             color: white;
-            padding: 15px 0;
-            position: sticky;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px var(--shadow-color);
+            box-shadow: 0 4px 6px var(--shadow-color);
         }
 
         .header-content {
@@ -58,6 +60,9 @@
         .logo {
             font-size: 24px;
             font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         nav ul {
@@ -70,7 +75,8 @@
             color: white;
             text-decoration: none;
             font-size: 16px;
-            transition: color 0.3s ease;
+            font-weight: 500;
+            transition: all 0.3s ease;
         }
 
         nav a:hover {
@@ -78,47 +84,101 @@
         }
 
         .hero {
-            background: linear-gradient(rgba(58, 134, 255, 0.8), rgba(131, 56, 236, 0.8)), url('https://source.unsplash.com/random/1600x600/?university') no-repeat center center/cover;
-            color: white;
+            background: linear-gradient(rgba(58, 134, 255, 0.8), rgba(131, 56, 236, 0.8)), url('https://source.unsplash.com/random/1600x900/?university') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            padding: 60px 0;
+            color: white;
+            padding: 0 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
         }
 
         .hero h1 {
-            font-size: 36px;
+            font-size: 48px;
             margin-bottom: 20px;
+            font-weight: 700;
         }
 
         .hero p {
-            font-size: 18px;
+            font-size: 20px;
             max-width: 600px;
             margin: 0 auto 30px;
+        }
+
+        .btn {
+            background: linear-gradient(120deg, var(--accent-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: all 0.4s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .search-container {
             display: flex;
             justify-content: center;
-            margin: 30px 0;
+            margin: 50px 0;
         }
 
         .search-input {
             width: 60%;
-            padding: 12px 20px;
+            padding: 15px 20px;
             font-size: 16px;
             border-radius: 30px;
-            border: 2px solid var(--input-border);
-            outline: none;
+            border: none;
+            box-shadow: 0 4px 6px var(--shadow-color);
+            transition: all 0.3s ease;
         }
 
-        .search-btn {
-            background-color: var(--button-color);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 0 30px 30px 0;
-            margin-left: -2px;
+        .search-input:focus {
+            outline: none;
+            box-shadow: 0 6px 8px var(--shadow-color);
+            width: 65%;
         }
 
         .tabs {
@@ -129,107 +189,135 @@
         }
 
         .tab-btn {
-            background-color: var(--tab-inactive);
-            color: var(--text-color);
+            background: linear-gradient(120deg, var(--primary-color), var(--secondary-color));
+            color: white;
             border: none;
             padding: 12px 24px;
-            font-size: 16px;
+            font-size: 18px;
             cursor: pointer;
             border-radius: 30px;
             transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .tab-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px var(--shadow-color);
         }
 
         .tab-btn.active {
-            background-color: var(--button-color);
-            color: white;
+            background: linear-gradient(120deg, var(--accent-color), var(--secondary-color));
         }
 
         .card-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 30px;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
         }
 
         .card {
             background-color: var(--card-background);
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 6px var(--shadow-color);
-            transition: transform 0.3s ease;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 20px var(--shadow-color);
+            transition: all 0.3s ease;
         }
 
         .card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 15px 30px var(--shadow-color);
         }
 
         .card-title {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             color: var(--primary-color);
         }
 
         .card-info {
-            font-size: 14px;
+            font-size: 16px;
             color: #6c757d;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
         }
 
         .chart-container {
             background-color: var(--card-background);
-            border-radius: 10px;
+            border-radius: 15px;
             padding: 30px;
-            box-shadow: 0 4px 6px var(--shadow-color);
-            margin-bottom: 40px;
+            box-shadow: 0 10px 20px var(--shadow-color);
+            margin-bottom: 50px;
         }
 
         .chart-title {
             font-size: 24px;
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 20px;
-            color: var(--text-color);
+            color: var(--primary-color);
             text-align: center;
         }
 
         .about-cmt {
             background-color: var(--card-background);
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 4px 6px var(--shadow-color);
-            margin-bottom: 40px;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 20px var(--shadow-color);
+            margin-bottom: 50px;
         }
 
         .about-cmt h2 {
-            font-size: 24px;
-            font-weight: 600;
+            font-size: 28px;
+            font-weight: 700;
             margin-bottom: 20px;
-            color: var(--text-color);
+            color: var(--primary-color);
         }
 
         .about-cmt p {
+            font-size: 16px;
             margin-bottom: 15px;
+            color: #495057;
         }
 
         footer {
-            background-color: var(--text-color);
+            background: linear-gradient(120deg, var(--primary-color), var(--secondary-color));
             color: white;
             text-align: center;
-            padding: 20px 0;
-            margin-top: 40px;
+            padding: 30px 0;
+            margin-top: 50px;
+        }
+
+        #scrollToTopBtn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 24px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            display: none;
+            transition: all 0.3s ease;
+        }
+
+        #scrollToTopBtn:hover {
+            background-color: var(--secondary-color);
         }
 
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 28px;
+                font-size: 36px;
             }
 
             .hero p {
-                font-size: 16px;
+                font-size: 18px;
             }
 
             .search-input {
-                width: 70%;
+                width: 80%;
             }
 
             .card-container {
@@ -241,7 +329,10 @@
 <body>
     <header>
         <div class="container header-content">
-            <div class="logo">CMT</div>
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                CMT
+            </div>
             <nav>
                 <ul>
                     <li><a href="#"><i class="fas fa-search"></i> Rechercher</a></li>
@@ -255,16 +346,16 @@
 
     <main>
         <section class="hero">
-            <div class="container">
+            <div class="hero-content">
                 <h1>Bienvenue sur Court-Mais-Trash!</h1>
                 <p>Découvrez les meilleurs cours et professeurs de l'ESSEC, évalués par vos pairs</p>
+                <button class="btn">Commencer l'exploration</button>
             </div>
         </section>
 
         <div class="container">
             <div class="search-container">
                 <input type="text" class="search-input" placeholder="Rechercher un cours ou un professeur..." id="searchInput">
-                <button class="search-btn">Rechercher</button>
             </div>
 
             <section class="tabs">
@@ -281,10 +372,10 @@
 
             <section class="about-cmt">
                 <h2>À propos de Court-Mais-Trash</h2>
-                <p>Le Court-Mais-Trash (ou CMT pour les intimes) est une plateforme qui regroupe l'ensemble des avis des étudiants de la Grande École de l'ESSEC sur les différents cours dispensés.</p>
-                <p>Il est parfois difficile de faire son choix dans un catalogue de plus de 200 cours. C'est pourquoi le BDE ESSEC s'active chaque année pour récupérer un maximum d'avis, pour que tu puisses faire ton choix plus aisément.</p>
-                <p>Il faut savoir que le CMT n'est pas officiel. Les avis qui sont récoltés ici ne proviennent pas de l'administration. Donc pas de langue de bois, tu t'exprimes comme tu le souhaites (toujours dans le respect d'autrui).</p>
-                <p>De plus, nous t'invitons bien évidemment à mettre tes avis. Venir récupérer des infos c'est bien, mais en donner soit même c'est pas mal aussi. Pas de panique, tout est anonyme !</p>
+                <p><i class="fas fa-info-circle"></i> Le Court-Mais-Trash (ou CMT pour les intimes) est une plateforme qui regroupe l'ensemble des avis des étudiants de la Grande École de l'ESSEC sur les différents cours dispensés.</p>
+                <p><i class="fas fa-lightbulb"></i> Il est parfois difficile de faire son choix dans un catalogue de plus de 200 cours. C'est pourquoi le BDE ESSEC s'active chaque année pour récupérer un maximum d'avis, pour que tu puisses faire ton choix plus aisément.</p>
+                <p><i class="fas fa-exclamation-triangle"></i> Il faut savoir que le CMT n'est pas officiel. Les avis qui sont récoltés ici ne proviennent pas de l'administration. Donc pas de langue de bois, tu t'exprimes comme tu le souhaites (toujours dans le respect d'autrui).</p>
+                <p><i class="fas fa-comment-alt"></i> De plus, nous t'invitons bien évidemment à mettre tes avis. Venir récupérer des infos c'est bien, mais en donner soit même c'est pas mal aussi. Pas de panique, tout est anonyme !</p>
             </section>
         </div>
     </main>
@@ -292,29 +383,28 @@
     <footer>
         <div class="container">
             <p>&copy; 2024 Court-Mais-Trash. Tous droits réservés.</p>
-            <p>Développé avec passion par Digital Hippo</p>
+            <p>Développé avec passion par BDE Havana</p>
         </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-    <script>
-        const courseData = [
-            { id: 'MKGS31491', name: 'Case Studies in B-Analytics', rating: 6.4, reviews: 27, department: 'Marketing' },
-            { id: 'MKGS31492', name: 'sém. mgt savoir-faire except', rating: 8.0, reviews: 11, department: 'Marketing' },
-            { id: 'MKGS33212', name: 'Les stratégies de l\'industrie du voyage', rating: 8.0, reviews: 1, department: 'Marketing' },
-            { id: 'MKGS33224', name: 'actualité du tourisme, hôtellerie, restauration', rating: 8.0, reviews: 6, department: 'Marketing' },
-            { id: 'MKGS33300', name: 'Luxury Concepts & Hospitality', rating: 7.5, reviews: 2, department: 'Marketing' },
-        ];
+    <button id="scrollToTopBtn" title="Retour en haut"><i class="fas fa-chevron-up"></i></button>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+<script>
         const professorData = [
-            { name: 'Alexandre Avrillon', rating: 9.0, reviews: 1, department: 'Droit' },
-            { name: 'Wilfried Sand', rating: 7.5, reviews: 2, department: 'Economics' },
+            { name: 'Karina Lacroix', rating: 9.4, reviews: 87, department: 'Marketing' },
+            { name: 'Michael Kouklakis', rating: 9.4, reviews: 44, department: 'Finance' },
+            { name: 'Veronique Drecq', rating: 9.3, reviews: 88, department: 'Economics' },
+            { name: 'Jean-Yves Feng', rating: 9.2, reviews: 81, department: 'IT' },
+            { name: 'Carla Young', rating: 9.2, reviews: 44, department: 'Management' },
         ];
 
         const chartData = [
-            { name: 'Marketing', avgRating: 7.58, totalCourses: 5 },
-            { name: 'Droit', avgRating: 9.0, totalCourses: 1 },
-            { name: 'Economics', avgRating: 7.5, totalCourses: 1 },
+            { name: 'Marketing', avgRating: 8.8, totalCourses: 25 },
+            { name: 'Finance', avgRating: 8.6, totalCourses: 20 },
+            { name: 'Management', avgRating: 8.5, totalCourses: 18 },
+            { name: 'Economics', avgRating: 8.7, totalCourses: 15 },
+            { name: 'IT', avgRating: 8.9, totalCourses: 12 },
         ];
 
         let activeTab = 'courses';
@@ -389,7 +479,7 @@
                         beginAtZero: true
                     }
                 },
-              plugins: {
+                plugins: {
                     legend: {
                         position: 'top',
                     },
@@ -408,7 +498,7 @@
         // Initialize the page
         renderCards(courseData);
 
-        // Add smooth scrolling for anchor links
+        // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -418,7 +508,7 @@
             });
         });
 
-        // Add animation on scroll
+        // Animate elements on scroll
         function animateOnScroll() {
             const elements = document.querySelectorAll('.card, .chart-container, .about-cmt');
             elements.forEach(element => {
@@ -434,11 +524,25 @@
         window.addEventListener('scroll', animateOnScroll);
         animateOnScroll(); // Initial check on page load
 
-        // Add functionality to the search button
-        document.querySelector('.search-btn').addEventListener('click', () => {
-            const searchTerm = searchInput.value;
-            const filteredData = filterData(activeTab === 'courses' ? courseData : professorData, searchTerm);
-            renderCards(filteredData);
+        // Add parallax effect to hero section
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.pageYOffset;
+            document.querySelector('.hero').style.backgroundPositionY = `${scrollPosition * 0.5}px`;
+        });
+
+        // Scroll to top button functionality
+        const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
+        window.onscroll = function() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                scrollToTopBtn.style.display = "block";
+            } else {
+                scrollToTopBtn.style.display = "none";
+            }
+        };
+
+        scrollToTopBtn.addEventListener("click", function() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
         });
 
         // Add hover effect to cards
@@ -447,11 +551,11 @@
             cards.forEach(card => {
                 card.addEventListener('mouseover', () => {
                     card.style.transform = 'translateY(-10px)';
-                    card.style.boxShadow = '0 10px 20px rgba(0,0,0,0.2)';
+                    card.style.boxShadow = '0 15px 30px rgba(0,0,0,0.2)';
                 });
                 card.addEventListener('mouseout', () => {
                     card.style.transform = 'translateY(0)';
-                    card.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+                    card.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
                 });
             });
         }
@@ -459,33 +563,18 @@
         // Call the function after rendering cards
         addCardHoverEffect();
 
-        // Add a scroll-to-top button
-        const scrollToTopBtn = document.createElement('button');
-        scrollToTopBtn.innerHTML = '&uarr;';
-        scrollToTopBtn.style.position = 'fixed';
-        scrollToTopBtn.style.bottom = '20px';
-        scrollToTopBtn.style.right = '20px';
-        scrollToTopBtn.style.fontSize = '24px';
-        scrollToTopBtn.style.backgroundColor = var(--primary-color);
-        scrollToTopBtn.style.color = 'white';
-        scrollToTopBtn.style.border = 'none';
-        scrollToTopBtn.style.borderRadius = '50%';
-        scrollToTopBtn.style.width = '50px';
-        scrollToTopBtn.style.height = '50px';
-        scrollToTopBtn.style.cursor = 'pointer';
-        scrollToTopBtn.style.display = 'none';
-        document.body.appendChild(scrollToTopBtn);
-
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                scrollToTopBtn.style.display = 'block';
-            } else {
-                scrollToTopBtn.style.display = 'none';
-            }
+        // Add animation to the hero button
+        const heroBtn = document.querySelector('.hero .btn');
+        heroBtn.addEventListener('mouseenter', () => {
+            heroBtn.style.transform = 'scale(1.05)';
+        });
+        heroBtn.addEventListener('mouseleave', () => {
+            heroBtn.style.transform = 'scale(1)';
         });
 
-        scrollToTopBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Add a simple loading animation
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
         });
     </script>
 </body>
